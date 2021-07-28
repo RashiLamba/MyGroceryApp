@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My Grocery App</string>
+    <string name="full_name">Full Name</string>
+    <string name="already_have_an_account_click_to_login">Already have an account Click to Login!</string>
+    <string name="continue_without_login">Continue without login</string>
+    <string name="register">Register</string>
+</resources>
