@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapter.MyViewHolder> {
 
     Context mContext;
-    ArrayList<AllCategoryModel> mList = new ArrayList<>();
+    ArrayList<AllCategoryModel> mList;
 
     public HomeActivityAdapter(Context context, ArrayList list){
         this.mContext = context;
@@ -32,6 +33,7 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.row_category_recycler_view,parent,false);
+//        view.setOnClickListener(mOnClickListener);
         return new MyViewHolder(view);
     }
 
@@ -60,7 +62,7 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView textViewCategoryName;
         ImageView imageViewCategoryPic;
@@ -69,8 +71,16 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
             super(itemView);
             textViewCategoryName  = itemView.findViewById(R.id.text_view_category_name);
             imageViewCategoryPic = itemView.findViewById(R.id.image_view_category_pic);
-
-
         }
     }
+
+
+
+//    private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View view) {
+//            Toast.makeText(mContext, "hello", Toast.LENGTH_SHORT).show();
+//        }
+//    };
+
 }

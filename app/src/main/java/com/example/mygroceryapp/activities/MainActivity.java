@@ -6,16 +6,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mygroceryapp.R;
 import com.example.mygroceryapp.activities.HomeActivity;
 import com.example.mygroceryapp.activities.LogInActivity;
+import com.example.mygroceryapp.model.Validate;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView textViewName,textViewEmail,textViewContactNumber,textViewPassword,textViewClickToLogin;
+    EditText editTextName,editTextEmail,editTextContactNumber,editTextPassword;
+    TextView textViewClickToLogin;
     Button btnRegister,btnWithoutLogin;
+    String name,password,contactNumber,emailId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +30,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void init(){
-        textViewName = findViewById(R.id.text_view_full_name);
-        textViewEmail = findViewById(R.id.text_view_email);
-        textViewContactNumber = findViewById(R.id.text_view_contact_number);
-        textViewPassword = findViewById(R.id.text_view_password);
+        editTextName = findViewById(R.id.edit_text_full_name);
+        editTextEmail = findViewById(R.id.edit_text_email);
+        editTextContactNumber = findViewById(R.id.edit_text_contact_number);
+        editTextPassword = findViewById(R.id.edit_text_password);
         textViewClickToLogin = findViewById(R.id.text_view_click_to_login);
         btnRegister = findViewById(R.id.button_register);
         btnWithoutLogin = findViewById(R.id.button_without_login);
@@ -38,11 +43,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textViewClickToLogin.setOnClickListener(this);
     }
 
+    private void getData() {
+        name = editTextName.getText().toString().trim();
+        emailId = editTextEmail.getText().toString().trim();
+        password = editTextPassword.getText().toString().trim();
+        contactNumber = editTextContactNumber.getText().toString().trim();
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.button_register:
-                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                getData();
+                if (Validate.validateData(name,password,contactNumber,emailId,this)) {
+                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                }
+                else
+                    Toast.makeText(this, "Please enter all the information", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.text_view_click_to_login:
                 startActivity(new Intent(getApplicationContext(), LogInActivity.class));
@@ -50,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button_without_login:
                 startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                 break;
-
         }
     }
 }
